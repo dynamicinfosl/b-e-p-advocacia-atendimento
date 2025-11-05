@@ -17,7 +17,7 @@ import {
   EyeOff
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import logoImage from '../assets/Adapt-Link-Logo.png';
+import logoImage from '../assets/logo.png';
 
 const Configuracoes = () => {
   const [showApiKeys, setShowApiKeys] = useState({
@@ -27,7 +27,7 @@ const Configuracoes = () => {
   });
   
   const [settings, setSettings] = useState({
-    companyName: 'Adapt Link',
+    companyName: 'Barbosa Pereira Advocacia',
     companyLogo: '',
     primaryColor: '#3b82f6',
     notifications: true,
@@ -79,7 +79,7 @@ const Configuracoes = () => {
               <CardTitle className="flex items-center gap-2">
                 <img 
                   src={logoImage} 
-                  alt="Adapt Link Logo" 
+                  alt="Barbosa Pereira Advocacia" 
                   className="w-5 h-5 object-contain"
                 />
                 Informações da Empresa
@@ -104,7 +104,7 @@ const Configuracoes = () => {
                   <div className="w-16 h-16 flex items-center justify-center">
                     <img 
                       src={logoImage} 
-                      alt="Adapt Link Logo" 
+                      alt="Barbosa Pereira Advocacia" 
                       className="w-16 h-16 object-contain"
                     />
                   </div>

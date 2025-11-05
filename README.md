@@ -1,8 +1,8 @@
-# 🤖 Response Bridge AI - Sistema de Atendimento Multicanal com IA
+# ⚖️ BP Advocacia - Sistema de Atendimento Jurídico com IA
 
 Sistema completo de atendimento ao cliente multicanal com inteligência artificial, desenvolvido para empresas que precisam gerenciar atendimentos de forma eficiente através de diferentes canais de comunicação.
 
-![Adapt Link SaaS](https://img.shields.io/badge/Adapt%20Link-SaaS-blue)
+![BP Advocacia](https://img.shields.io/badge/BP%20Advocacia-Atendimento-blue)
 ![React](https://img.shields.io/badge/React-18.3.1-blue)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-blue)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.4.17-blue)
@@ -23,7 +23,7 @@ Sistema completo de atendimento ao cliente multicanal com inteligência artifici
 
 ## 🎯 Visão Geral
 
-O **Response Bridge AI** é uma plataforma SaaS completa que integra inteligência artificial com atendimento multicanal, permitindo que empresas gerenciem conversas de clientes através de WhatsApp, Instagram, E-mail e Telefone de forma unificada e automatizada.
+O **BP Advocacia - Atendimento com IA** é uma plataforma voltada a escritórios de advocacia para gestão de atendimentos jurídicos multicanal (WhatsApp, Instagram, E-mail e Telefone) com automações inteligentes e fluxo de triagem.
 
 ### Principais Benefícios
 
@@ -188,7 +188,7 @@ As configurações do Vite estão em `vite.config.ts` com alias `@` apontando pa
 
 1. Acesse `http://localhost:8080/login`
 2. Use as credenciais padrão:
-   - **Email**: `admin@adaptlink.com`
+   - **Email**: `contato@bp-advocacia.com`
    - **Senha**: `123456`
 
 ### Navegação Principal
@@ -316,10 +316,10 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 Para suporte e dúvidas:
 
-- **Email**: suporte@adaptlink.com
-- **Documentação**: [docs.adaptlink.com](https://docs.adaptlink.com)
+- **Email**: contato@bp-advocacia.com.br
+- **Documentação**: [Guia do Escritório](https://exemplo.seu-dominio.com/docs)
 - **Issues**: [GitHub Issues](https://github.com/seu-usuario/response-bridge-ai/issues)
 
 ---
 
-**Desenvolvido com ❤️ pela equipe Adapt Link**
+**Customizado com ❤️ para Barbosa Pereira Advocacia**

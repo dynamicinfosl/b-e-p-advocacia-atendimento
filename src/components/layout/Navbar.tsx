@@ -12,7 +12,7 @@ import {
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
 import { useIsMobile } from '@/hooks/use-mobile';
-import logoImage from '../../assets/Adapt-Link-Logo.png';
+import logoImage from '../../assets/logo.png';
 
 interface NavbarProps {
   sidebarCollapsed: boolean;
@@ -61,7 +61,7 @@ export const Navbar = ({ sidebarCollapsed, onToggleSidebar }: NavbarProps) => {
   };
 
   return (
-    <header className="bg-primary h-16 flex items-center px-4 sm:px-6 relative shadow-sm">
+    <header className="bg-primary h-28 flex items-center px-4 sm:px-6 relative shadow-sm">
       {/* Gradiente sutil no topo e base */}
       <div className="absolute top-0 left-0 right-0 h-px bg-white/10"></div>
       <div className="absolute bottom-0 left-0 right-0 h-px bg-black/10"></div>
@@ -81,12 +81,14 @@ export const Navbar = ({ sidebarCollapsed, onToggleSidebar }: NavbarProps) => {
 
         {/* Logo e Título - Responsivo */}
         <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
-          <div className="flex items-center gap-2">
-            <div className="flex items-baseline">
-              <span className="text-white font-bold text-lg sm:text-xl tracking-tight">adapt</span>
-              <span className="text-white/70 text-lg sm:text-xl font-light tracking-tight">link</span>
-            </div>
-          </div>
+          <a href="/" className="flex items-center gap-2">
+            <img
+              src={logoImage}
+              alt="Barbosa Pereira Advocacia"
+              className="h-24 sm:h-28 w-auto object-contain drop-shadow-sm"
+            />
+            <span className="sr-only">Barbosa Pereira Advocacia</span>
+          </a>
           
           <div className="h-6 w-px bg-white/30 hidden sm:block"></div>
           

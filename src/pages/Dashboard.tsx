@@ -78,7 +78,7 @@ const Dashboard = () => {
       id: 1,
       client: 'Maria Silva',
       channel: 'WhatsApp',
-      lastMessage: 'Preciso de ajuda com meu pedido #1234',
+      lastMessage: 'Fui demitida e não recebi minhas verbas',
       time: '2 min atrás',
       status: 'pendente',
       unread: 3
@@ -87,7 +87,7 @@ const Dashboard = () => {
       id: 2,
       client: 'João Santos',
       channel: 'Instagram',
-      lastMessage: 'Quando vai chegar minha encomenda?',
+      lastMessage: 'Dúvida sobre pensão alimentícia',
       time: '5 min atrás',
       status: 'em_andamento',
       unread: 0
@@ -96,7 +96,7 @@ const Dashboard = () => {
       id: 3,
       client: 'Ana Costa',
       channel: 'E-mail',
-      lastMessage: 'Gostaria de cancelar minha assinatura',
+      lastMessage: 'Quero abrir inventário do meu pai',
       time: '10 min atrás',
       status: 'pendente',
       unread: 1

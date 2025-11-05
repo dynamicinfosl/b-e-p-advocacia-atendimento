@@ -82,35 +82,35 @@ const Atendimentos = () => {
     {
       id: 1,
       sender: 'client',
-      content: 'Olá! Preciso de ajuda com meu pedido #1234',
+      content: 'Olá! Preciso de orientação sobre um processo trabalhista.',
       time: '14:32',
       type: 'text'
     },
     {
       id: 2,
       sender: 'ai',
-      content: 'Olá Maria! Vou te ajudar com seu pedido. Deixe-me consultar as informações.',
+      content: 'Olá Maria! Posso ajudar com dúvidas iniciais. Você poderia informar se já existe número de processo ou apenas intenção de ingressar com ação?',
       time: '14:33',
       type: 'text'
     },
     {
       id: 3,
       sender: 'ai',
-      content: 'Encontrei seu pedido! Está em processo de separação no nosso centro de distribuição. Previsão de entrega: 2 dias úteis.',
+      content: 'Se já houver processo, por favor envie o número (ex.: 0000000-00.2024.5.00.0000). Caso contrário, descreva brevemente o ocorrido (data, empresa e situação).',
       time: '14:33',
       type: 'text'
     },
     {
       id: 4,
       sender: 'client',
-      content: 'Mas eu preciso muito do produto para amanhã. Não tem como acelerar?',
+      content: 'Ainda não há processo. Fui demitida sem receber verbas rescisórias.',
       time: '14:35',
       type: 'text'
     },
     {
       id: 5,
       sender: 'human',
-      content: 'Olá Maria, sou o atendente Carlos. Vou verificar se conseguimos uma entrega expressa para você.',
+      content: 'Olá Maria, sou o Dr. Carlos. Vou conduzir uma triagem inicial. Preciso do nome completo, CPF e documentos da rescisão para avaliarmos ação de verbas rescisórias.',
       time: '14:40',
       type: 'text'
     }

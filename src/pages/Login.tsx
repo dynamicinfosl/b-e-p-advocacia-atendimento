@@ -7,10 +7,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Lock, Mail } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
-import logoImage from '../assets/Adapt-Link-Logo.png';
+import logoImage from '../assets/logo.png';
 
 const Login = () => {
-  const [email, setEmail] = useState('admin@adaptlink.com');
+  const [email, setEmail] = useState('contato@bp-advocacia.com');
   const [password, setPassword] = useState('123456');
   const [isLoading, setIsLoading] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
@@ -44,14 +44,14 @@ const Login = () => {
     <div className="min-h-screen bg-gradient-secondary flex items-center justify-center p-4">
              <Card className="w-full max-w-sm shadow-elevated">
                   <CardHeader className="text-center pb-2">
-            <div className="mx-auto w-32 h-32 flex items-center justify-center mb-1">
+            <div className="mx-auto w-40 h-40 flex items-center justify-center mb-1">
               <img 
                 src={logoImage} 
-                alt="Adapt Link Logo" 
-                className="w-32 h-32 object-contain"
+                alt="Barbosa Pereira Advocacia" 
+                className="w-40 h-40 object-contain"
               />
             </div>
-            <p className="text-muted-foreground text-sm">Atendimento</p>
+            <p className="text-muted-foreground text-sm">Atendimento Jurídico</p>
             <CardTitle className="text-xl font-bold text-foreground">
               Acesso ao Sistema
             </CardTitle>

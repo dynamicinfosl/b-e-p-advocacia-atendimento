@@ -1,4 +1,4 @@
-import logoImage from '../assets/Adapt-Link-Logo.png';
+import logoImage from '../assets/logo.png';
 
 // Update this page (the content is just a fallback if you fail to update the page)
 
@@ -7,9 +7,9 @@ const Index = () => {
     <div className="min-h-screen flex items-center justify-center bg-background">
       <div className="text-center">
         
-        <h1 className="text-4xl font-bold mb-4 text-primary">Adapt Link SaaS</h1>
+        <h1 className="text-4xl font-bold mb-4 text-primary">Barbosa Pereira Advocacia</h1>
         <p className="text-xl text-muted-foreground mb-6">
-          Sistema de Atendimento Multicanal com IA
+          Sistema de Atendimento Jurídico com IA
         </p>
         <div className="flex gap-4 justify-center">
           <a 
