@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -7,15 +7,48 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Lock, Mail } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
-import logoImage from '../assets/logo.png';
+import logoImage from '../assets/logo .jpg';
+import { applyThemeFromPrimaryHex, extractDominantHex } from '@/lib/theme';
 
 const Login = () => {
-  const [email, setEmail] = useState('contato@bp-advocacia.com');
+  const [email, setEmail] = useState('admin@adaptlink.com');
   const [password, setPassword] = useState('123456');
   const [isLoading, setIsLoading] = useState(false);
+  const [companyLogo, setCompanyLogo] = useState<string | null>(null);
   const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem('companySettings');
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed?.companyLogo) setCompanyLogo(parsed.companyLogo as string);
+      }
+    } catch (_) {
+      // ignore
+    }
+  }, []);
+
+  // Extrai cor do logo mostrado no login e aplica ao tema
+  useEffect(() => {
+    const source = companyLogo || logoImage;
+    let isCancelled = false;
+    (async () => {
+      const hex = await extractDominantHex(source);
+      if (!hex || isCancelled) return;
+      applyThemeFromPrimaryHex(hex);
+      try {
+        const raw = localStorage.getItem('companySettings');
+        const parsed = raw ? JSON.parse(raw) : {};
+        localStorage.setItem('companySettings', JSON.stringify({ ...parsed, primaryColor: hex }));
+      } catch (_) {
+        // ignore
+      }
+    })();
+    return () => { isCancelled = true; };
+  }, [companyLogo]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,14 +77,14 @@ const Login = () => {
     <div className="min-h-screen bg-gradient-secondary flex items-center justify-center p-4">
              <Card className="w-full max-w-sm shadow-elevated">
                   <CardHeader className="text-center pb-2">
-            <div className="mx-auto w-40 h-40 flex items-center justify-center mb-1">
+            <div className="mx-auto w-32 h-32 flex items-center justify-center mb-1">
               <img 
-                src={logoImage} 
-                alt="Barbosa Pereira Advocacia" 
-                className="w-40 h-40 object-contain"
+                src={companyLogo || logoImage} 
+                alt="Adapt Link Logo" 
+                className="w-32 h-32 object-contain"
               />
             </div>
-            <p className="text-muted-foreground text-sm">Atendimento Jurídico</p>
+            <p className="text-muted-foreground text-sm">Atendimento</p>
             <CardTitle className="text-xl font-bold text-foreground">
               Acesso ao Sistema
             </CardTitle>

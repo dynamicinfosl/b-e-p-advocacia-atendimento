@@ -49,13 +49,13 @@ const ConfiguracaoIA = () => {
     // Configurações de Canal
     whatsapp: {
       enabled: true,
-      greeting: 'Olá! Sou a IA da Barbosa Pereira Advocacia. Como posso ajudá-lo hoje?',
+      greeting: 'Olá! Sou a IA da Adapt Link. Como posso ajudá-lo hoje?',
       fallback: 'Desculpe, não consegui entender. Vou transferir você para um atendente humano.',
       workingHours: '08:00-18:00'
     },
     instagram: {
       enabled: true,
-      greeting: 'Oi! 👋 Sou a IA da Barbosa Pereira Advocacia. Em que posso ajudar?',
+      greeting: 'Oi! 👋 Sou a IA da Adapt Link. Em que posso ajudar?',
       fallback: 'Ops! Não entendi bem. Vou chamar um humano para te ajudar! 😊',
       workingHours: '09:00-19:00'
     },
@@ -67,7 +67,7 @@ const ConfiguracaoIA = () => {
     },
     phone: {
       enabled: true,
-      greeting: 'Olá! Sou a assistente virtual da Barbosa Pereira Advocacia. Como posso ajudá-lo?',
+      greeting: 'Olá! Sou a assistente virtual da Adapt Link. Como posso ajudá-lo?',
       fallback: 'Vou transferir sua chamada para um de nossos atendentes.',
       workingHours: '08:00-18:00'
     },
@@ -202,7 +202,7 @@ const ConfiguracaoIA = () => {
                   <Bot className="w-6 h-6 text-primary-foreground" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold">IA Barbosa Pereira Advocacia</h3>
+                  <h3 className="text-lg font-semibold">IA Adapt Link</h3>
                   <p className="text-sm text-muted-foreground">Modelo: {aiSettings.model}</p>
                 </div>
               </div>

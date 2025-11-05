@@ -9,6 +9,8 @@ import {
   BarChart3,
   Bot,
   Settings, 
+  Calendar,
+  Folder,
   ChevronLeft,
   ChevronRight,
   X,
@@ -18,7 +20,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
-import logoImage from '../../assets/Adapt-Link-Logo.png';
+
 
 const menuItems = [
   {
@@ -27,18 +29,33 @@ const menuItems = [
     icon: LayoutDashboard
   },
   {
-    title: 'Atendimentos',
+    title: 'Atendimentos Jurídicos',
     href: '/atendimentos',
     icon: MessageSquare
   },
   {
-    title: 'Ligações com IA',
-    href: '/ligacoes-ia',
-    icon: Phone
+    title: 'Clientes',
+    href: '/clientes',
+    icon: Users
   },
   {
-    title: 'Ordens de Serviço',
-    href: '/ordem-servico',
+    title: 'Processos',
+    href: '/processos',
+    icon: Folder
+  },
+  {
+    title: 'Prazos',
+    href: '/prazos',
+    icon: Calendar
+  },
+  {
+    title: 'Audiências',
+    href: '/audiencias',
+    icon: Calendar
+  },
+  {
+    title: 'Documentos',
+    href: '/documentos',
     icon: FileText
   },
   {
@@ -136,7 +153,7 @@ export const Sidebar = ({ collapsed, onToggle, mobileOpen = false, onMobileClose
 
       {/* Navigation */}
       <nav className="flex-1 px-3 py-4">
-        <ul className="space-y-2">
+        <ul className="space-y-3">
           {menuItems.slice(0, -1).map((item) => {
             const Icon = item.icon;
             const isActive = location.pathname === item.href;
@@ -147,7 +164,7 @@ export const Sidebar = ({ collapsed, onToggle, mobileOpen = false, onMobileClose
                   to={item.href}
                   onClick={isMobile ? onMobileClose : undefined}
                   className={cn(
-                    "flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-all duration-200",
+                    "flex items-center px-3 py-4 text-sm font-medium rounded-lg transition-all duration-200",
                     "hover:bg-primary-muted hover:text-primary",
                     isActive && "bg-primary text-primary-foreground shadow-primary",
                     collapsed && !isMobile && "justify-center px-2"
@@ -171,7 +188,7 @@ export const Sidebar = ({ collapsed, onToggle, mobileOpen = false, onMobileClose
           to="/login"
           onClick={isMobile ? onMobileClose : undefined}
           className={cn(
-            "flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-all duration-200",
+            "flex items-center px-3 py-4 text-sm font-medium rounded-lg transition-all duration-200",
             "hover:bg-destructive/10 hover:text-destructive",
             collapsed && !isMobile && "justify-center px-2"
           )}

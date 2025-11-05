@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Layout } from '@/components/layout/Layout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -17,7 +17,8 @@ import {
   EyeOff
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import logoImage from '../assets/logo.png';
+import { applyThemeFromPrimaryHex, extractDominantHex } from '@/lib/theme';
+import logoImage from '../assets/logo .jpg';
 
 const Configuracoes = () => {
   const [showApiKeys, setShowApiKeys] = useState({
@@ -26,27 +27,107 @@ const Configuracoes = () => {
     openai: false
   });
   
+  // Carrega configurações previamente salvas (localStorage) como fallback
+  const savedSettingsRaw = typeof window !== 'undefined' ? localStorage.getItem('companySettings') : null;
+  const savedSettings = savedSettingsRaw ? JSON.parse(savedSettingsRaw) : null;
   const [settings, setSettings] = useState({
-    companyName: 'Barbosa Pereira Advocacia',
-    companyLogo: '',
-    primaryColor: '#3b82f6',
-    notifications: true,
-    autoResponse: true,
-    apiKeys: {
+    companyName: savedSettings?.companyName ?? 'Barbosa Pereira',
+    companyLogo: savedSettings?.companyLogo ?? '',
+    primaryColor: savedSettings?.primaryColor ?? '#3b82f6',
+    notifications: savedSettings?.notifications ?? true,
+    autoResponse: savedSettings?.autoResponse ?? true,
+    apiKeys: savedSettings?.apiKeys ?? {
       whatsapp: 'whatsapp_key_hidden',
       instagram: 'instagram_key_hidden',
       openai: 'openai_key_hidden'
     }
   });
 
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
   const { toast } = useToast();
 
   const handleSave = () => {
+    try {
+      localStorage.setItem('companySettings', JSON.stringify(settings));
+    } catch (e) {
+      // ignore quota errors silenciosamente
+    }
     toast({
       title: "Configurações salvas!",
       description: "As alterações foram aplicadas com sucesso.",
     });
   };
+
+  const handleLogoUploadClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleApplyColorsFromLogo = async () => {
+    const source = settings.companyLogo || logoImage;
+    const hex = await extractDominantHex(source);
+    if (!hex) return;
+    applyThemeFromPrimaryHex(hex);
+    setSettings(prev => ({ ...prev, primaryColor: hex }));
+    try {
+      localStorage.setItem('companySettings', JSON.stringify({ ...settings, primaryColor: hex }));
+    } catch (_) {
+      // ignore
+    }
+    toast({ title: 'Cores aplicadas', description: 'Tema atualizado a partir da logo.' });
+  };
+
+  const handleLogoChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const dataUrl = typeof reader.result === 'string' ? reader.result : '';
+      if (!dataUrl) return;
+
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+        ctx.drawImage(img, 0, 0);
+
+        // Remover fundo branco aproximado tornando pixels quase brancos transparentes
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const { data } = imageData;
+        const threshold = 245; // 0-255; quanto maior mais agressivo
+        for (let i = 0; i < data.length; i += 4) {
+          const r = data[i];
+          const g = data[i + 1];
+          const b = data[i + 2];
+          // Se o pixel é quase branco, zera alpha
+          if (r >= threshold && g >= threshold && b >= threshold) {
+            data[i + 3] = 0;
+          }
+        }
+        ctx.putImageData(imageData, 0, 0);
+
+        const transparentPng = canvas.toDataURL('image/png');
+        setSettings(prev => ({ ...prev, companyLogo: transparentPng }));
+
+        // Extrair cor dominante e aplicar no tema
+        extractDominantHex(transparentPng).then((hex) => {
+          if (hex) {
+            applyThemeFromPrimaryHex(hex);
+            setSettings(prev => ({ ...prev, primaryColor: hex }));
+          }
+        });
+      };
+      img.src = dataUrl;
+    };
+    reader.readAsDataURL(file);
+  };
+
+  // Aplicar cor imediatamente quando o usuário altera via input de cor/campo texto
+  
 
   const toggleApiKeyVisibility = (key: keyof typeof showApiKeys) => {
     setShowApiKeys(prev => ({
@@ -79,7 +160,7 @@ const Configuracoes = () => {
               <CardTitle className="flex items-center gap-2">
                 <img 
                   src={logoImage} 
-                  alt="Barbosa Pereira Advocacia" 
+                  alt="Adapt Link Logo" 
                   className="w-5 h-5 object-contain"
                 />
                 Informações da Empresa
@@ -103,15 +184,27 @@ const Configuracoes = () => {
                 <div className="flex items-center gap-4">
                   <div className="w-16 h-16 flex items-center justify-center">
                     <img 
-                      src={logoImage} 
-                      alt="Barbosa Pereira Advocacia" 
+                      src={settings.companyLogo || logoImage} 
+                      alt="Logo da Empresa" 
                       className="w-16 h-16 object-contain"
                     />
                   </div>
-                  <Button variant="outline">
-                    <Upload className="w-4 h-4 mr-2" />
-                    Fazer Upload
+                  <div>
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/png, image/jpeg"
+                      onChange={handleLogoChange}
+                      className="hidden"
+                    />
+                  <Button variant="outline" onClick={handleLogoUploadClick}>
+                      <Upload className="w-4 h-4 mr-2" />
+                      Fazer Upload
+                    </Button>
+                  <Button className="ml-2" variant="default" onClick={handleApplyColorsFromLogo}>
+                    Usar cores da logo
                   </Button>
+                  </div>
                 </div>
                 <p className="text-xs text-muted-foreground">
                   Recomendado: 200x200px, PNG ou JPG

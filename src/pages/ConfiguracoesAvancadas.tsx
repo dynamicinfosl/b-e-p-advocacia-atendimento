@@ -38,10 +38,10 @@ const ConfiguracoesAvancadas = () => {
   ]);
 
   const [respostasAutomaticas, setRespostasAutomaticas] = useState({
-    boasVindas: 'Olá! Sou a IA da Barbosa Pereira Advocacia. Posso iniciar uma triagem jurídica para direcionar seu caso?',
-    foraExpediente: 'No momento estamos fora do horário de atendimento jurídico. Retornamos às 08:00. Deixe um resumo do caso, seu nome completo e contato.',
-    transferencia: 'Vou transferir você para um(a) advogado(a) do nosso time. Um instante, por favor.',
-    encerramento: 'Agradecemos o contato. Caso precise, estamos à disposição. Este canal não substitui consulta jurídica formal.'
+    boasVindas: 'Olá! Sou a IA da nossa empresa. Como posso ajudá-lo hoje?',
+    foraExpediente: 'No momento estamos fora do horário de atendimento. Nossa equipe retorna às 08:00. Deixe sua mensagem que responderemos assim que possível!',
+    transferencia: 'Vou transferir você para um dos nossos atendentes humanos. Um momento, por favor.',
+    encerramento: 'Muito obrigado pelo contato! Se precisar de mais alguma coisa, estarei sempre aqui para ajudar.'
   });
 
   const { toast } = useToast();
