@@ -7,11 +7,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Lock, Mail } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
-import logoImage from '../assets/logo .jpg';
+import logoImage from '../assets/logo.png';
 import { applyThemeFromPrimaryHex, extractDominantHex } from '@/lib/theme';
 
 const Login = () => {
-  const [email, setEmail] = useState('admin@adaptlink.com');
+  const [email, setEmail] = useState('contato@bp-advocacia.com');
   const [password, setPassword] = useState('123456');
   const [isLoading, setIsLoading] = useState(false);
   const [companyLogo, setCompanyLogo] = useState<string | null>(null);
@@ -80,11 +80,11 @@ const Login = () => {
             <div className="mx-auto w-32 h-32 flex items-center justify-center mb-1">
               <img 
                 src={companyLogo || logoImage} 
-                alt="Adapt Link Logo" 
+                alt="Barbosa Pereira Advocacia" 
                 className="w-32 h-32 object-contain"
               />
             </div>
-            <p className="text-muted-foreground text-sm">Atendimento</p>
+            <p className="text-muted-foreground text-sm">Atendimento Jurídico</p>
             <CardTitle className="text-xl font-bold text-foreground">
               Acesso ao Sistema
             </CardTitle>
@@ -155,8 +155,8 @@ const Login = () => {
               </div>
 
                            <div className="text-center text-xs text-muted-foreground pt-3">
-               <p>Credenciais de demo:</p>
-               <p>admin@adaptlink.com / 123456</p>
+               <p>Credenciais de demonstração:</p>
+               <p>contato@bp-advocacia.com / 123456</p>
              </div>
           </form>
         </CardContent>

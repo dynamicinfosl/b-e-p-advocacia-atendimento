@@ -1,6 +1,10 @@
 const API_URL = import.meta.env.VITE_N8N_API_URL;
 const API_KEY = import.meta.env.VITE_N8N_API_KEY;
 
+function isConfigured() {
+  return typeof API_URL === 'string' && API_URL.length > 0;
+}
+
 async function fetchAPI<T>(endpoint: string, options?: RequestInit): Promise<T> {
   const url = `${API_URL}${endpoint}`;
   
@@ -13,6 +17,16 @@ async function fetchAPI<T>(endpoint: string, options?: RequestInit): Promise<T> 
   };
 
   try {
+    // Fallback: quando sem configuração, retornar dados vazios para endpoints GET
+    if (!isConfigured()) {
+      console.warn('⚠️ VITE_N8N_API_URL não configurada. Usando fallback local para', endpoint);
+      const isGet = !options || !options.method || options.method.toUpperCase() === 'GET';
+      if (isGet) {
+        // Retorna coleções vazias para evitar quebra de JSON
+        return ([] as unknown) as T;
+      }
+      throw new Error('API não configurada. Defina VITE_N8N_API_URL no .env.local');
+    }
     const response = await fetch(url, {
       ...options,
       headers,
@@ -25,6 +39,14 @@ async function fetchAPI<T>(endpoint: string, options?: RequestInit): Promise<T> 
       const errorText = await response.text();
       console.error('❌ API Error:', { status: response.status, statusText: response.statusText, body: errorText });
       throw new Error(`API Error: ${response.statusText}`);
+    }
+
+    // Garante que a resposta é JSON; se vier HTML (ex.: index.html), evita SyntaxError
+    const contentType = response.headers.get('content-type') || '';
+    if (!contentType.includes('application/json')) {
+      const text = await response.text();
+      console.error('❌ Conteúdo não-JSON recebido da API:', text.slice(0, 200));
+      throw new Error('Resposta da API não é JSON. Verifique a URL do webhook (VITE_N8N_API_URL).');
     }
 
     const data = await response.json();

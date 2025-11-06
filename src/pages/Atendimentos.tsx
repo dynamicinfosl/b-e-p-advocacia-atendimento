@@ -25,6 +25,7 @@ import {
 import { cn } from '@/lib/utils';
 import { useChats, useMessages, useSendMessage } from '@/hooks/useChats';
 import { Loader2 } from 'lucide-react';
+import { legalAreas, legalQuickReplies, LegalTriageData } from '@/lib/legal';
 
 const Atendimentos = () => {
   const [selectedChat, setSelectedChat] = useState<string | null>(null);
@@ -34,6 +35,7 @@ const Atendimentos = () => {
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [chatsToShow, setChatsToShow] = useState<number>(20); // Quantidade inicial de chats a mostrar
   const [searchQuery, setSearchQuery] = useState<string>(''); // Busca de conversas
+  const [showTriage, setShowTriage] = useState(false);
 
   // Buscar chats e mensagens da API
   const { data: chatsData, isLoading: chatsLoading, error: chatsError } = useChats();
@@ -235,6 +237,10 @@ const Atendimentos = () => {
       });
       setMessageText('');
     }
+  };
+
+  const sendQuickReply = (text: string) => {
+    setMessageText(text);
   };
 
   const selectedChatData = chats.find(chat => chat.id === selectedChat);
@@ -487,6 +493,14 @@ const Atendimentos = () => {
                             <UserCheck className="w-4 h-4 mr-2" />
                             Transferir
                           </Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => setShowTriage(true)}
+                          >
+                            <Filter className="w-4 h-4 mr-2" />
+                            Triagem
+                          </Button>
                           <Button 
                             variant="outline" 
                             size="sm"
@@ -635,6 +649,14 @@ const Atendimentos = () => {
 
                 {/* Message Input - Estilo WhatsApp */}
                 <div className="p-3 bg-[#f0f2f5] border-t border-[#e9edef]">
+                  {/* Respostas rápidas jurídicas */}
+                  <div className="flex gap-2 flex-wrap pb-2">
+                    {legalQuickReplies.map((qr) => (
+                      <Button key={qr.label} size="sm" variant="outline" className="text-xs" onClick={() => sendQuickReply(qr.text)}>
+                        {qr.label}
+                      </Button>
+                    ))}
+                  </div>
                   <div className="flex items-center gap-2">
                     <div className="flex-1 bg-white rounded-lg">
                       <Input
@@ -692,6 +714,32 @@ const Atendimentos = () => {
                 channel: selectedChatData.channel || selectedChatData.WhatsApp || 'WhatsApp'
               }}
             />
+
+            {/* Modal simples de triagem jurídica */}
+            {showTriage && (
+              <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50" onClick={() => setShowTriage(false)}>
+                <div className="bg-white rounded-lg w-full max-w-xl p-4" onClick={(e) => e.stopPropagation()}>
+                  <h3 className="text-lg font-semibold mb-2">Triagem Jurídica</h3>
+                  <div className="grid grid-cols-1 gap-3">
+                    <Input placeholder="Nome completo" onChange={() => {}} />
+                    <div className="grid grid-cols-2 gap-3">
+                      <Input placeholder="CPF/CNPJ (opcional)" onChange={() => {}} />
+                      <Input placeholder="Telefone (opcional)" onChange={() => {}} />
+                    </div>
+                    <select className="border rounded px-3 py-2">
+                      {legalAreas.map((a) => (
+                        <option key={a} value={a}>{a}</option>
+                      ))}
+                    </select>
+                    <textarea className="border rounded px-3 py-2 min-h-[100px]" placeholder="Resumo do caso (fatos, datas, partes)" />
+                    <div className="flex items-center justify-end gap-2 mt-2">
+                      <Button variant="outline" onClick={() => setShowTriage(false)}>Cancelar</Button>
+                      <Button onClick={() => { setShowTriage(false); setMessageText('Triagem iniciada: por favor, informe nome completo, CPF/CNPJ, área do direito e um breve resumo com datas.'); }}>Solicitar dados</Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </>
         )}
       </div>

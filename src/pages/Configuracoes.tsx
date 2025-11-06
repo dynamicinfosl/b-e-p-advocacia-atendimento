@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { applyThemeFromPrimaryHex, extractDominantHex } from '@/lib/theme';
-import logoImage from '../assets/logo .jpg';
+import logoImage from '../assets/logo.png';
 
 const Configuracoes = () => {
   const [showApiKeys, setShowApiKeys] = useState({
