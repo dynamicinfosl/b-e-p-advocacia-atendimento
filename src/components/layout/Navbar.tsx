@@ -112,18 +112,19 @@ export const Navbar = ({ sidebarCollapsed, onToggleSidebar }: NavbarProps) => {
 
         {/* Logo e Título - Responsivo */
         }
-        <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
-          <div className="flex items-center">
+        <div className="flex items-center gap-0 flex-shrink-0">
+          {/* Faixa branca contínua do início até a divisória (sem bordas arredondadas) */}
+          <div className="flex items-center h-16 -ml-4 sm:-ml-6 pr-0 sm:pr-0 bg-background">
             <img
               src={displayLogo || defaultLogo}
               alt={companyName}
-              className="h-8 sm:h-10 object-contain"
+              className="h-8 sm:h-10 w-auto object-contain"
             />
           </div>
           
-          <div className="h-6 w-px bg-white/30 hidden sm:block"></div>
+          <div className="h-16 w-px bg-white/30 hidden sm:block"></div>
           
-          <span className="text-white font-medium text-sm sm:text-lg drop-shadow-sm min-w-0 truncate hidden sm:block">
+          <span className="text-white font-medium text-sm sm:text-lg drop-shadow-sm min-w-0 truncate hidden sm:block ml-2 sm:ml-4">
             {getPageTitle()}
           </span>
         </div>
@@ -145,9 +146,9 @@ export const Navbar = ({ sidebarCollapsed, onToggleSidebar }: NavbarProps) => {
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="text-white hover:bg-white/10 px-2 py-1">
                 <div className="flex items-center gap-2">
-                  <Avatar className="h-8 w-8">
-                    <AvatarFallback className="bg-white/20 text-white">CJ</AvatarFallback>
-                  </Avatar>
+                  <div className="h-8 w-8 rounded-full bg-white/20 flex items-center justify-center">
+                    {/* empty avatar without initials */}
+                  </div>
                   <div className="hidden sm:flex flex-col items-start leading-tight">
                     <span className="text-sm text-white">Administrador</span>
                   </div>

@@ -202,7 +202,7 @@ const ConfiguracaoIA = () => {
                   <Bot className="w-6 h-6 text-primary-foreground" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold">IA Adapt Link</h3>
+                  <h3 className="text-lg font-semibold">IA Advocacia</h3>
                   <p className="text-sm text-muted-foreground">Modelo: {aiSettings.model}</p>
                 </div>
               </div>

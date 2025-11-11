@@ -49,11 +49,6 @@ const menuItems = [
     icon: Calendar
   },
   {
-    title: 'Audiências',
-    href: '/audiencias',
-    icon: Calendar
-  },
-  {
     title: 'Documentos',
     href: '/documentos',
     icon: FileText
